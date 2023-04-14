@@ -3,7 +3,7 @@ import { SlArrowLeft, SlArrowRight } from 'react-icons/sl';
 import { TfiZoomIn, TfiZoomOut } from 'react-icons/tfi';
 import { GrRotateRight } from 'react-icons/gr';
 import { AiOutlineClose } from 'react-icons/ai'
- 
+
 const LightBox = () => {
     const array = ['1.jpeg', '2.jpeg', '3.jpeg', '4.jpeg'];
     const [showModal, setShowModal] = useState(false);
@@ -19,10 +19,14 @@ const LightBox = () => {
 
     const rightIconClickHandle = () => {
         setCurrentIndex(currentIndex + 1);
+        setScale(1);
+        setRotation(0);
     };
 
     const leftIconClickHandle = () => {
         setCurrentIndex(currentIndex - 1);
+        setScale(1);
+        setRotation(0);
     };
 
     const handleZoomIn = () => {
@@ -42,11 +46,12 @@ const LightBox = () => {
 
     return (
         <>
-            <div className='flex flex-wrap m-10 h-[800px]'>
+            <div className='flex flex-wrap m-10 h-[800px] md:border-2 md:border-2 blue-500 md:w-fit'>
+            {/* <div className='m-10 flex'> */}
                 {array.map((item, index) => {
                     return (
                         <img
-                            className='w-[49%] h-[49%] m-1 border-2 border-black cursor-pointer'
+                            className='w-[49%] h-[49%] md:w-[100%] m-1 border-2 border-black cursor-pointer'
                             onClick={() => imageClickHandle(index)}
                             src={`/static/${item}`}
                             alt={item}
@@ -58,11 +63,11 @@ const LightBox = () => {
             </div>
 
             {showModal && (
-                <div className='w-full h-full absolute top-0 left-0 bottom-0 right-0 bg-white flex flex-col items-center justify-around'>
-                    <AiOutlineClose className='absolute top-7  left-7 w-10 h-10 cursor-pointer' onClick={handleClose}/>
-                    <div className='flex justify-between w-20 h-fit'>
-                            <h1 className='text-3xl font-light text-[#CCB37A]'>{`${currentIndex + 1}`}</h1>
-                            <h1 className='text-3xl font-light'>{`of ${array.length}`}</h1>
+                <div className='w-full h-full absolute top-0 left-0 bottom-0 right-0 bg-white flex flex-col items-center justify-around md:justify-center'>
+                    <AiOutlineClose className='absolute top-7  left-7 w-10 h-10 cursor-pointer' onClick={handleClose} />
+                    <div className='flex justify-between w-20 mb-10 h-fit'>
+                        <h1 className='text-3xl font-light text-[#CCB37A]'>{`${currentIndex + 1}`}</h1>
+                        <h1 className='text-3xl font-light'>{`of ${array.length}`}</h1>
                     </div>
                     <div className='flex items-center justify-between w-full'>
                         {currentIndex === 0 ? (
@@ -84,7 +89,7 @@ const LightBox = () => {
                             </div>
                             <img
                                 ref={imageRef}
-                                className='w-[900px] h-[500px]'
+                                className='w-[900px] h-[500px] md:w-[450px] md:h-[250px]'
                                 src={`/static/${array[currentIndex]}`}
                                 alt=''
                                 style={{ transform: `scale(${scale}) rotate(${rotation}deg)`, transition: 'transform 0.3s ease-in-out' }}
